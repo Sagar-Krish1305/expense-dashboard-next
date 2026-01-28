@@ -40,7 +40,7 @@ async function createTransaction(data: TransactionDetails) {
 
   if (sameMonth && lastEntry?.id !== undefined) {
     const updated = addToEntry(lastEntry);
-    const aggRes = await fetch(`http://localhost:3000/previous_months_data/${lastEntry.id}`, {
+    const aggRes = await fetch(`/previous_months_data/${lastEntry.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updated)
@@ -50,7 +50,7 @@ async function createTransaction(data: TransactionDetails) {
   } else {
     const oldest = prevData[0];
     if (oldest?.id !== undefined) {
-      await fetch(`http://localhost:3000/previous_months_data/${oldest.id}`, {
+      await fetch(`/previous_months_data/${oldest.id}`, {
         method: "DELETE"
       });
     }
@@ -61,7 +61,7 @@ async function createTransaction(data: TransactionDetails) {
       expense: 0,
     });
 
-    const aggRes = await fetch("http://localhost:3000/previous_months_data", {
+    const aggRes = await fetch("/previous_months_data", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newEntry)

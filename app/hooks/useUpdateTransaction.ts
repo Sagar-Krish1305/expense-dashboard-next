@@ -4,7 +4,7 @@ import type { TransactionDetails } from "../types/transaction.types";
 async function updateTransaction(data: TransactionDetails) {
   if (!data.id) throw new Error("Transaction id is required to update");
 
-  const res = await fetch(`http://localhost:3000/transactions/${data.id}`, {
+  const res = await fetch(`/transactions/${data.id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
