@@ -50,9 +50,7 @@ function Home() {
       await new Promise<void>((resolve) =>
         setTimeout(resolve, 1000)
       );
-      const res = await axios.get(
-        'http://localhost:3000/transactions'
-      );
+      const res = await axios.get( '/transactions' );
       return res.data;
     },
   });

@@ -11,7 +11,7 @@ type PreviousMonthDatum = {
 };
 
 async function createTransaction(data: TransactionDetails) {
-  const res = await fetch("http://localhost:3000/transactions", {
+  const res = await fetch("/transactions", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
@@ -22,7 +22,7 @@ async function createTransaction(data: TransactionDetails) {
   const txDate = new Date(data.transaction_date);
   const monthLabel = txDate.toLocaleString("en-US", { month: "short" }); 
 
-  const prevRes = await fetch("http://localhost:3000/previous_months_data");
+  const prevRes = await fetch("/previous_months_data");
   if (!prevRes.ok) throw new Error("Failed to load monthly aggregates");
   const prevData = (await prevRes.json()) as PreviousMonthDatum[];
   const lastEntry = prevData[prevData.length - 1];
