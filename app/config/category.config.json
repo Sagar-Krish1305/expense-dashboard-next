@@ -1,0 +1,22 @@
+{
+    "AVAILABLE_EXPENSE_CATEGORIES": [
+        "Food & Dining",
+        "Rent / Housing",
+        "Utilities",
+        "Travel",
+        "Entertainment",
+        "Personal Care",
+        "Subscriptions",
+        "Miscellaneous"
+    ],
+    "AVAILABLE_INCOME_CATEGORIES": [
+        "Salary",
+        "Freelance",
+        "Business",
+        "Investments",
+        "Interest",
+        "Gifts",
+        "Refunds",
+        "Other Income"
+    ]
+}
