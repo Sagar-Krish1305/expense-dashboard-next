@@ -1,4 +1,4 @@
-import { PreviousMonthDataDetails } from "../types/transaction.types"
+import { PreviousMonthDataDetails } from "../../types/transaction.types"
 
 export const previous_month_data: PreviousMonthDataDetails[] = [
     { id: "12fr", month: "Dec", income: 42000, expense: 23800 },

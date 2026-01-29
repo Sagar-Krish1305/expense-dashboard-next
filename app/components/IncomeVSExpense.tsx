@@ -18,7 +18,7 @@ export default function IncomeVSExpense() {
         setTimeout(resolve, 1000)
       );
       const res = await axios.get(
-        '/previous_months_data'
+        '/api/previous_months_data'
       );
       return res.data;
     },

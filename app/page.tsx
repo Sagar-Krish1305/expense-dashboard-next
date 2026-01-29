@@ -1,8 +1,8 @@
 "use client"
 import { PiggyBank, Sun, TrendingDown, TrendingUp, Wallet } from 'lucide-react';
 import SummaryCard from './components/SummaryCard';
-import { useState } from 'react';
-import AddTransactionModal from './components/AddTransactionModal';
+import { useEffect, useState } from 'react';
+import AddTransactionModal from './components/modals/AddTransactionModal';
 import RecentTransactions from './components/RecentTransactions';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -11,8 +11,10 @@ import categoryConfig from './config/category.config.json'
 import { useTheme } from './context/ThemeContext';
 import IncomeVSExpense from './components/IncomeVSExpense';
 import ExpenseByCategory from './components/ExpenseByCategory';
-import EditTransactionModal from './components/EditTransactionModal';
+import EditTransactionModal from './components/modals/EditTransactionModal';
 import { TransactionDetails } from './types/transaction.types';
+import EditBudgetModal from './components/modals/EditBudgetModal';
+import { useEditBudgetData, BudgetEntry } from './hooks/useEditBudgetData';
 
 function DashboardLoading() {
   return (
@@ -50,7 +52,7 @@ function Home() {
       await new Promise<void>((resolve) =>
         setTimeout(resolve, 1000)
       );
-      const res = await axios.get( '/transactions' );
+      const res = await axios.get( '/api/transactions' );
       return res.data;
     },
   });
@@ -118,6 +120,10 @@ function Home() {
     useState(false);
   const [editModalVisibility, setEditModalVisibility] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState<TransactionDetails | null>(null);
+  const [budgetModalVisibility, setBudgetModalVisibility] = useState(false);
+  const [budgets, setBudgets] = useState<Record<string, number>>({});
+
+  const budgetMutation = useEditBudgetData();
 
   if (isPending) {
     return <DashboardLoading />;
@@ -140,6 +146,25 @@ function Home() {
           isVisible={editModalVisibility}
           setVisibility={setEditModalVisibility}
           transaction={selectedTransaction}
+        />
+      )}
+
+      {budgetModalVisibility && (
+        <EditBudgetModal
+          isVisible={budgetModalVisibility}
+          setVisibility={setBudgetModalVisibility}
+          initialData={getBudgetData(transactionData)}
+          onSubmit={(data) =>
+            budgetMutation.mutate(data, {
+              onSuccess: (updated) => {
+                const record: Record<string, number> = {};
+                (updated || []).forEach(({ category, budget }) => {
+                  record[category] = budget ?? 0;
+                });
+                setBudgets(record);
+              },
+            })
+          }
         />
       )}
 
@@ -222,7 +247,10 @@ function Home() {
             />
           </div>
           <div className="w-full">
-            <BudgetOverview budgetData={getBudgetData(transactionData)} />
+            <BudgetOverview
+              budgetData={getBudgetData(transactionData)}
+              onEditBudget={() => setBudgetModalVisibility(true)}
+            />
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ type PreviousMonthDatum = {
 };
 
 async function createTransaction(data: TransactionDetails) {
-  const res = await fetch("/transactions", {
+  const res = await fetch("/api/transactions", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
@@ -22,7 +22,7 @@ async function createTransaction(data: TransactionDetails) {
   const txDate = new Date(data.transaction_date);
   const monthLabel = txDate.toLocaleString("en-US", { month: "short" }); 
 
-  const prevRes = await fetch("/previous_months_data");
+  const prevRes = await fetch("/api/previous_months_data");
   if (!prevRes.ok) throw new Error("Failed to load monthly aggregates");
   const prevData = (await prevRes.json()) as PreviousMonthDatum[];
   const lastEntry = prevData[prevData.length - 1];
@@ -40,7 +40,7 @@ async function createTransaction(data: TransactionDetails) {
 
   if (sameMonth && lastEntry?.id !== undefined) {
     const updated = addToEntry(lastEntry);
-    const aggRes = await fetch(`/previous_months_data/${lastEntry.id}`, {
+    const aggRes = await fetch(`/api/previous_months_data/${lastEntry.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updated)
@@ -50,7 +50,7 @@ async function createTransaction(data: TransactionDetails) {
   } else {
     const oldest = prevData[0];
     if (oldest?.id !== undefined) {
-      await fetch(`/previous_months_data/${oldest.id}`, {
+      await fetch(`/api/previous_months_data/${oldest.id}`, {
         method: "DELETE"
       });
     }
@@ -61,7 +61,7 @@ async function createTransaction(data: TransactionDetails) {
       expense: 0,
     });
 
-    const aggRes = await fetch("/previous_months_data", {
+    const aggRes = await fetch("/api/previous_months_data", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newEntry)

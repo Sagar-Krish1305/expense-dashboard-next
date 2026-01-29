@@ -1,0 +1,6 @@
+{
+	"*": {
+		"ui:widget": "updown",
+		"ui:placeholder": "Enter budget amount"
+	}
+}

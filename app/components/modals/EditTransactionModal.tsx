@@ -1,5 +1,5 @@
-import EditTransactionForm from '../forms/EditTransactionForm';
-import type { TransactionDetails } from '../types/transaction.types';
+import EditTransactionForm from '../../forms/EditTransactionForm';
+import type { TransactionDetails } from '../../types/transaction.types';
 
 export default function EditTransactionModal({
   isVisible,

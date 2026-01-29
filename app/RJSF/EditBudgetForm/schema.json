@@ -1,0 +1,55 @@
+{
+	"type": "object",
+	"properties": {
+		"Food & Dining": {
+			"type": "number",
+			"title": "Food & Dining",
+			"minimum": 0
+		},
+		"Rent / Housing": {
+			"type": "number",
+			"title": "Rent / Housing",
+			"minimum": 0
+		},
+		"Utilities": {
+			"type": "number",
+			"title": "Utilities",
+			"minimum": 0
+		},
+		"Travel": {
+			"type": "number",
+			"title": "Travel",
+			"minimum": 0
+		},
+		"Entertainment": {
+			"type": "number",
+			"title": "Entertainment",
+			"minimum": 0
+		},
+		"Personal Care": {
+			"type": "number",
+			"title": "Personal Care",
+			"minimum": 0
+		},
+		"Subscriptions": {
+			"type": "number",
+			"title": "Subscriptions",
+			"minimum": 0
+		},
+		"Miscellaneous": {
+			"type": "number",
+			"title": "Miscellaneous",
+			"minimum": 0
+		}
+	},
+	"required": [
+		"Food & Dining",
+		"Rent / Housing",
+		"Utilities",
+		"Travel",
+		"Entertainment",
+		"Personal Care",
+		"Subscriptions",
+		"Miscellaneous"
+	]
+}

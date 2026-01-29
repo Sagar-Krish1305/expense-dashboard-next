@@ -1,11 +1,15 @@
-import AddTransactionForm from '../forms/AddTransactionForm';
+import EditBudgetForm, { BudgetFormData } from '../../forms/EditBudgetForm';
 
-export default function AddTransactionModal({
+export default function EditBudgetModal({
   isVisible,
   setVisibility,
+  initialData,
+  onSubmit,
 }: {
   isVisible: boolean;
   setVisibility: (visibility: boolean) => void;
+  initialData?: BudgetFormData;
+  onSubmit?: (data: BudgetFormData) => void;
 }) {
   if (!isVisible) return null;
 
@@ -19,10 +23,12 @@ export default function AddTransactionModal({
         flex items-center justify-center
       "
     >
-      {/* Modal content */}
-      <AddTransactionForm
+      <EditBudgetForm
+        initialData={initialData}
+        onSubmit={onSubmit}
         setModalVisibility={setVisibility}
       />
     </div>
   );
 }
+

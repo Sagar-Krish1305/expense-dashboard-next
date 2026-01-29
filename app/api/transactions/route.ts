@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import { TransactionDetails } from "../types/transaction.types"
+import { TransactionDetails } from "../../types/transaction.types"
 
 export const transactions: TransactionDetails[] = [
   {
